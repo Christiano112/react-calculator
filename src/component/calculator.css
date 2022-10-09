@@ -25,7 +25,7 @@ body {
     cursor: pointer;
 }
 
-.calculator input {
+.calculator .result {
     background: #fff;
     border-radius: .3rem;
     border: none;
@@ -42,11 +42,14 @@ body {
 .calculator .box-row {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: center;
 }
 
-.calculator .calculator-box p {
+.calculator .calculator-box button {
     border: .05rem solid #000;
-    padding: .5rem;
+    padding: 1rem;
+    width: 3.1rem;
     text-align: center;
     border-radius: .6rem;
     margin: .5rem;
@@ -55,7 +58,7 @@ body {
     .2rem .2rem .5rem rgba(0, 0, 0, .7) inset;
 }
 
-.calculator .calculator-box p:active {
+.calculator .calculator-box button:active {
     position: relative;
     bottom: .2rem;
     left: .05rem;

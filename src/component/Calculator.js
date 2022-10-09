@@ -1,6 +1,9 @@
-import "./calculator.css"
+import { React, useState } from "react";
+import "./calculator.css";
+import evaluate from "./Evaluate";
 
-function Calculator() {
+
+const Calculator = () => {
 
     const calculatorInputs = [
         {
@@ -127,20 +130,77 @@ function Calculator() {
         },
     ]
 
+    const [result, setResult] = useState({
+        total: undefined,
+        next: undefined,
+        operate: undefined
+    });
+
+    let value = 0;
+
+    if (result.next) {
+        value = result.next;
+    } else if (result.total) {
+        value = result.total;
+    }
+
+    const newResult = (value) => {
+        const newState = evaluate(result, value)
+        setResult(newState)
+    }
+
+    const clickHandler = (e) => {
+        const input = e.target.innerText;
+        newResult(input);
+    }
 
     return (
         <div className="calculator">
-            <input type="text" readOnly />
+            <div className="result">{value}</div>
 
             <div className="box-row">
                 {calculatorInputs.map((calculator) => (
-                    <div keys={calculator.id} className="calculator-box">
-                        <p style={{ color: calculator.color, backgroundColor: calculator.bg, fontWeight: calculator.font }}>{calculator.data}</p>
+                    <div key={calculator.id} className="calculator-box">
+                        <button
+                            style={{ color: calculator.color, backgroundColor: calculator.bg, fontWeight: calculator.font }}
+                            onClick={clickHandler}
+                            type="button">
+                            {calculator.data}
+                        </button>
                     </div>
                 ))}
             </div>
         </div>
     )
+
+
 }
 
 export default Calculator;
+
+// function operation(inputOne, inputTwo, sign) {
+//     const one = Big(inputOne);
+//     const two = Big(inputTwo);
+
+//     if (sign === "+") {
+//         return one.plus(two).toString();
+//     }
+//     if (sign === "-") {
+//         return one.minus(two).toString();
+//     }
+//     if (sign === "*") {
+//         return one.times(two).toString();
+//     }
+//     if (sign === "/") {
+//         try {
+//             return one.plus(two).toString();
+//         }
+//         catch (err) {
+//             return "Error dividing by 0"
+//         }
+//     }
+//     if (sign === "%") {
+//         return one.mod(two).toString();
+//     }
+//     throw Error(`Unknown Operator ${sign}`)
+// }
