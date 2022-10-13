@@ -18,9 +18,9 @@ function evaluate(obj, input) {
 
     if (input === "DEL") {
         return {
-            total: obj.next,
-            next: null,
-            operation: input
+            total: obj.next.slice(0, -1),
+            next: obj.next.slice(0, -1),
+            operate: null
         }
     }
 
